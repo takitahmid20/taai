@@ -12,3 +12,13 @@ export function setToken(token: string): void {
   localStorage.setItem(TOKEN_KEY, token);
 }
 
+/** Remove access token (logout) */
+export function clearToken(): void {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(TOKEN_KEY);
+}
+
+/** Check if user is authenticated */
+export function isAuthenticated(): boolean {
+  return !!getToken();
+}

@@ -55,3 +55,49 @@ function parseLabel(label: string): Segment[] {
     }
   }
 
+  return segments;
+}
+
+function segmentValue(seg: Segment): number {
+  switch (seg.type) {
+    case "number": return seg.value;
+    case "roman": return seg.value;
+    case "alpha": {
+      // Convert single letter to number (a=1, b=2, ..., z=26)
+      if (seg.value.length === 1) return seg.value.charCodeAt(0) - 96;
+      // Multi-char: use char code sum as fallback
+      return seg.value.split("").reduce((sum, c) => sum + c.charCodeAt(0), 0);
+    }
+  }
+}
+
+function compareSegments(a: Segment[], b: Segment[]): number {
+  const len = Math.max(a.length, b.length);
+  for (let i = 0; i < len; i++) {
+    const sa = a[i];
+    const sb = b[i];
+
+    // Missing segment = comes first
+    if (!sa && sb) return -1;
+    if (sa && !sb) return 1;
+    if (!sa || !sb) return 0;
+
+    const va = segmentValue(sa);
+    const vb = segmentValue(sb);
+
+    if (va !== vb) return va - vb;
+  }
+  return 0;
+}
+
+/**
+ * Sort an array of items by their question_label field.
+ * Handles complex labels like "1(a)", "2(b)(ii)", "3(c)", "10", etc.
+ */
+export function sortByQuestionLabel<T extends { question_label: string }>(items: T[]): T[] {
+  return [...items].sort((a, b) => {
+    const parsedA = parseLabel(a.question_label);
+    const parsedB = parseLabel(b.question_label);
+    return compareSegments(parsedA, parsedB);
+  });
+}

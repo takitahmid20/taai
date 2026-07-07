@@ -46,3 +46,33 @@ export function normalizeRubricDescription(raw: unknown): RubricDescription {
     });
   }
 
+  // Normalize penalties
+  let penalties: RubricPenalty[] = [];
+  if (Array.isArray(obj.penalties)) {
+    penalties = obj.penalties.map((item: Record<string, unknown>) => {
+      // Standard: { deduction, condition }
+      if ("deduction" in item && "condition" in item) {
+        return { deduction: Number(item.deduction) || 0, condition: String(item.condition || "") };
+      }
+      // Non-standard: { marks, for }
+      if ("marks" in item && "for" in item) {
+        return { deduction: Number(item.marks) || 0, condition: String(item.for || "") };
+      }
+      // Fallback
+      const numKey = Object.keys(item).find((k) => typeof item[k] === "number");
+      const strKey = Object.keys(item).find((k) => typeof item[k] === "string" && k !== numKey);
+      return {
+        deduction: numKey ? Number(item[numKey]) : 0,
+        condition: strKey ? String(item[strKey]) : JSON.stringify(item),
+      };
+    });
+  }
+
+  // Normalize fatal_flaw
+  let fatal_flaw: string | null = null;
+  if (typeof obj.fatal_flaw === "string" && obj.fatal_flaw.trim()) {
+    fatal_flaw = obj.fatal_flaw;
+  }
+
+  return { criteria, penalties, fatal_flaw };
+}

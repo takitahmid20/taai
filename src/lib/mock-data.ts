@@ -35,3 +35,32 @@ export const NOTIFICATIONS = [
   { id: "n5", type: "success", title: "Report exported", body: "Class performance report ready to download", time: "Yesterday" },
 ];
 
+export const RUBRIC = [
+  { id: "r1", name: "Concept Accuracy", weight: 35, score: 28, max: 35, ai: 28, conf: 92, note: "Correctly identifies action-reaction pairs but misses one boundary case." },
+  { id: "r2", name: "Essay Structure", weight: 20, score: 17, max: 20, ai: 17, conf: 88, note: "Strong introduction & logical flow. Conclusion could be tighter." },
+  { id: "r3", name: "Critical Thinking", weight: 25, score: 19, max: 25, ai: 18, conf: 76, note: "Good reasoning, but lacks counter-example analysis." },
+  { id: "r4", name: "Grammar & Clarity", weight: 20, score: 18, max: 20, ai: 18, conf: 95, note: "Minor punctuation issues. Vocabulary is appropriate." },
+];
+
+export const WEEKLY_ACTIVITY = [
+  { day: "Mon", graded: 24, manual: 6 },
+  { day: "Tue", graded: 38, manual: 4 },
+  { day: "Wed", graded: 52, manual: 9 },
+  { day: "Thu", graded: 41, manual: 5 },
+  { day: "Fri", graded: 67, manual: 12 },
+  { day: "Sat", graded: 30, manual: 3 },
+  { day: "Sun", graded: 18, manual: 2 },
+];
+
+export const WEAK_TOPICS = [
+  { topic: "Newton's 3rd Law", score: 58 },
+  { topic: "Algebraic Expressions", score: 62 },
+  { topic: "Normalization (3NF)", score: 65 },
+  { topic: "Essay Conclusion", score: 71 },
+  { topic: "Thermodynamics", score: 74 },
+];
+
+export const IMPROVEMENT = [
+  { week: "W1", avg: 62 }, { week: "W2", avg: 65 }, { week: "W3", avg: 68 },
+  { week: "W4", avg: 72 }, { week: "W5", avg: 74 }, { week: "W6", avg: 78 }, { week: "W7", avg: 81 },
+];
