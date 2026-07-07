@@ -40,3 +40,43 @@ export async function getStudent(studentId: string) {
   return apiClient<StudentResponse>(ENDPOINTS.STUDENT(studentId));
 }
 
+export async function createStudent(payload: CreateStudentPayload) {
+  return apiClient<StudentResponse>(ENDPOINTS.STUDENTS, {
+    method: "POST",
+    body: payload as unknown as Record<string, unknown>,
+  });
+}
+
+export async function updateStudent(studentId: string, payload: UpdateStudentPayload) {
+  return apiClient<StudentResponse>(ENDPOINTS.STUDENT(studentId), {
+    method: "PATCH",
+    body: payload as unknown as Record<string, unknown>,
+  });
+}
+
+export async function deleteStudent(studentId: string) {
+  return apiClient<StudentResponse>(ENDPOINTS.STUDENT(studentId), {
+    method: "DELETE",
+  });
+}
+
+// Student assignment marks
+export type StudentAssignmentMark = {
+  assignment_id: number;
+  title: string;
+  subject: string;
+  assignment_total_marks: number;
+  marks_obtained: number;
+  graded_question_count: number;
+  created_at: string;
+};
+
+type StudentAssignmentsResponse = {
+  message: string;
+  student: Student;
+  data: StudentAssignmentMark[];
+};
+
+export async function getStudentAssignments(studentId: string) {
+  return apiClient<StudentAssignmentsResponse>(ENDPOINTS.STUDENT_ASSIGNMENTS(studentId));
+}

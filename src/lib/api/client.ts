@@ -46,3 +46,38 @@ export async function apiClient<T = unknown>(
     }
   }
 
+  // Set content type for JSON bodies (not FormData)
+  if (body && !(body instanceof FormData)) {
+    requestHeaders["Content-Type"] = "application/json";
+  }
+
+  try {
+    const response = await fetch(url, {
+      method,
+      headers: requestHeaders,
+      body: body instanceof FormData ? body : body ? JSON.stringify(body) : undefined,
+    });
+
+    // Handle 401 - token expired/invalid
+    if (response.status === 401 && !isPublic) {
+      clearToken();
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
+      }
+      return { data: null, error: "Session expired. Please login again.", status: 401 };
+    }
+
+    const responseData = await response.json().catch(() => null);
+
+    if (!response.ok) {
+      const errorMessage =
+        responseData?.error || responseData?.message || `Request failed with status ${response.status}`;
+      return { data: null, error: errorMessage, status: response.status };
+    }
+
+    return { data: responseData as T, error: null, status: response.status };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Network error. Please check your connection.";
+    return { data: null, error: message, status: 0 };
+  }
+}

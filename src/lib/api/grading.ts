@@ -27,3 +27,26 @@ type GradeResponse = {
   data: GradeResult[];
 };
 
+type ScoresResponse = {
+  message: string;
+  count: number;
+  total_marks: number;
+  data: ScoreEntry[];
+};
+
+// API calls
+
+/** Trigger AI grading for a student's answers on an assignment */
+export async function gradeStudent(assignmentId: number, studentId: string) {
+  return apiClient<GradeResponse>(
+    ENDPOINTS.GRADE_STUDENT(assignmentId, studentId),
+    { method: "POST" }
+  );
+}
+
+/** Get grading results/scores for a student on an assignment */
+export async function getStudentScores(assignmentId: number, studentId: string) {
+  return apiClient<ScoresResponse>(
+    ENDPOINTS.STUDENT_SCORES(assignmentId, studentId)
+  );
+}

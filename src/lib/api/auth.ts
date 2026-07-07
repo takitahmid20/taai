@@ -26,3 +26,31 @@ export type LoginPayload = {
   password: string;
 };
 
+// API calls
+export async function signup(payload: SignupPayload) {
+  const result = await apiClient<AuthResponse>(ENDPOINTS.AUTH_SIGNUP, {
+    method: "POST",
+    body: payload as unknown as Record<string, unknown>,
+    public: true,
+  });
+
+  if (result.data?.access_token) {
+    setToken(result.data.access_token);
+  }
+
+  return result;
+}
+
+export async function login(payload: LoginPayload) {
+  const result = await apiClient<AuthResponse>(ENDPOINTS.AUTH_LOGIN, {
+    method: "POST",
+    body: payload as unknown as Record<string, unknown>,
+    public: true,
+  });
+
+  if (result.data?.access_token) {
+    setToken(result.data.access_token);
+  }
+
+  return result;
+}

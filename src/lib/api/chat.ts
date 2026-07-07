@@ -13,3 +13,9 @@ type ChatResponse = {
   };
 };
 
+export async function sendChatMessage(message: string, history: ChatMessage[]) {
+  return apiClient<ChatResponse>(ENDPOINTS.TA_CHAT, {
+    method: "POST",
+    body: { message, history } as unknown as Record<string, unknown>,
+  });
+}
