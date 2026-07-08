@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useCallback } from "react";
 import { AppShell } from "@/components/app/shell";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Plus, Search, Pencil, Trash2, Loader2, ClipboardList,
   X, Check, AlertTriangle, BookOpen, Hash, Upload,
@@ -120,10 +119,9 @@ function AssignmentsPage() {
         )}
 
         {/* Create modal */}
-        <AnimatePresence>
-          {showCreate && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 grid place-items-center bg-foreground/40 backdrop-blur-sm p-4" onClick={() => setShowCreate(false)}>
-              <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} onClick={(e) => e.stopPropagation()} className="bg-card rounded-lg border border-border p-6 w-full max-w-lg shadow-[0_24px_64px_-12px_oklch(0.2_0.02_280/0.25)]">
+        {showCreate && (
+            <div className="fixed inset-0 z-50 grid place-items-center bg-foreground/40 backdrop-blur-sm p-4" onClick={() => setShowCreate(false)}>
+              <div onClick={(e) => e.stopPropagation()} className="bg-card rounded-lg border border-border p-6 w-full max-w-lg shadow-[0_24px_64px_-12px_oklch(0.2_0.02_280/0.25)]">
                 <div className="flex items-center justify-between mb-5">
                   <div><h2 className="text-xl font-display font-bold">Create Assignment</h2><p className="text-sm text-muted-foreground mt-0.5">Set up a new assessment</p></div>
                   <button onClick={() => { setShowCreate(false); setCreateError(null); }} className="size-8 rounded-lg hover:bg-accent grid place-items-center cursor-pointer"><X className="size-4" /></button>
@@ -140,16 +138,14 @@ function AssignmentsPage() {
                     <button type="submit" disabled={createLoading} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-60 cursor-pointer">{createLoading ? <Loader2 className="size-4 animate-spin" /> : <Plus className="size-4" />} Create</button>
                   </div>
                 </form>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
 
         {/* Edit modal */}
-        <AnimatePresence>
-          {editingId !== null && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 grid place-items-center bg-foreground/40 backdrop-blur-sm p-4" onClick={() => setEditingId(null)}>
-              <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} onClick={(e) => e.stopPropagation()} className="bg-card rounded-lg border border-border p-6 w-full max-w-lg shadow-[0_24px_64px_-12px_oklch(0.2_0.02_280/0.25)]">
+        {editingId !== null && (
+            <div className="fixed inset-0 z-50 grid place-items-center bg-foreground/40 backdrop-blur-sm p-4" onClick={() => setEditingId(null)}>
+              <div onClick={(e) => e.stopPropagation()} className="bg-card rounded-lg border border-border p-6 w-full max-w-lg shadow-[0_24px_64px_-12px_oklch(0.2_0.02_280/0.25)]">
                 <div className="flex items-center justify-between mb-5">
                   <div><h2 className="text-xl font-display font-bold">Edit Assignment</h2><p className="text-sm text-muted-foreground mt-0.5">Update assignment details</p></div>
                   <button onClick={() => setEditingId(null)} className="size-8 rounded-lg hover:bg-accent grid place-items-center cursor-pointer"><X className="size-4" /></button>
@@ -166,26 +162,23 @@ function AssignmentsPage() {
                     <button type="submit" disabled={editLoading} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-60 cursor-pointer">{editLoading ? <Loader2 className="size-4 animate-spin" /> : <Check className="size-4" />} Save Changes</button>
                   </div>
                 </form>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
 
         {/* Delete modal */}
-        <AnimatePresence>
-          {deletingId !== null && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 grid place-items-center bg-foreground/40 backdrop-blur-sm p-4" onClick={() => setDeletingId(null)}>
-              <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} onClick={(e) => e.stopPropagation()} className="bg-card rounded-lg border border-border p-6 w-full max-w-sm shadow-[0_24px_64px_-12px_oklch(0.2_0.02_280/0.25)]">
+        {deletingId !== null && (
+            <div className="fixed inset-0 z-50 grid place-items-center bg-foreground/40 backdrop-blur-sm p-4" onClick={() => setDeletingId(null)}>
+              <div onClick={(e) => e.stopPropagation()} className="bg-card rounded-lg border border-border p-6 w-full max-w-sm shadow-[0_24px_64px_-12px_oklch(0.2_0.02_280/0.25)]">
                 <div className="flex items-center gap-3 mb-4"><div className="size-10 rounded-md bg-destructive/10 grid place-items-center"><Trash2 className="size-5 text-destructive" /></div><div><h3 className="font-bold">Delete Assignment</h3><p className="text-xs text-muted-foreground">This action cannot be undone.</p></div></div>
                 <p className="text-sm text-muted-foreground mb-5">Are you sure? All associated questions, rubrics, and solutions will also be removed.</p>
                 <div className="flex gap-2 justify-end">
                   <button onClick={() => setDeletingId(null)} className="px-4 py-2.5 rounded-md border border-border text-sm font-medium hover:bg-accent transition cursor-pointer">Cancel</button>
                   <button onClick={() => deletingId && handleDelete(deletingId)} disabled={deleteLoading} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-destructive text-destructive-foreground text-sm font-semibold disabled:opacity-60 cursor-pointer">{deleteLoading ? <Loader2 className="size-4 animate-spin" /> : <Trash2 className="size-4" />} Delete</button>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
 
         {/* Cards */}
         {loading ? (
@@ -199,10 +192,10 @@ function AssignmentsPage() {
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filtered.map((a, i) => {
+            {filtered.map((a) => {
               const id = getId(a);
               return (
-                <motion.div key={id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }} className="group p-5 rounded-lg bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 transition-all">
+                <div key={id} className="group p-5 rounded-lg bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 transition-all">
                   <div className="flex items-start justify-between mb-4">
                     <div className="size-11 rounded-md bg-primary grid place-items-center text-primary-foreground text-xs font-bold">{a.subject.slice(0, 2).toUpperCase()}</div>
                     <div className="flex items-center gap-1">
@@ -225,7 +218,7 @@ function AssignmentsPage() {
                       <Upload className="size-3.5" /> Upload Questions & Rubrics →
                     </Link>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>

@@ -1,6 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { useState } from "react";
 import { Logo } from "@/components/app/logo";
 import { isAuthenticated } from "@/lib/auth";
 import {
@@ -134,23 +132,12 @@ export const Route = createFileRoute("/")({
 });
 
 function Landing() {
-  const [scrolled, setScrolled] = useState(false);
-  const { scrollY } = useScroll();
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 50);
-  });
-
   const loggedIn = isAuthenticated();
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       {/* Nav */}
-      <motion.div
-        className="fixed top-4 left-0 right-0 z-40 mx-4 md:mx-8 lg:mx-12"
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: scrolled ? 0 : -100, opacity: scrolled ? 1 : 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      >
+      <div className="fixed top-4 left-0 right-0 z-40 mx-4 md:mx-8 lg:mx-12">
         <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 rounded-2xl border border-border bg-background/70 backdrop-blur-xl shadow-[0_4px_24px_-4px_oklch(0.2_0.02_280/0.08)]">
           <Link to="/" className="flex items-center gap-2">
             <Logo size="sm" className="text-foreground" />
@@ -188,7 +175,7 @@ function Landing() {
             )}
           </div>
         </nav>
-      </motion.div>
+      </div>
 
       {/* Static top nav (visible before scroll) */}
       <nav className="relative z-30 max-w-7xl mx-auto flex items-center justify-between px-6 py-5">
@@ -235,7 +222,7 @@ function Landing() {
         <div className="absolute inset-0 hero-sweep pointer-events-none" aria-hidden="true" />
         <div className="absolute inset-0 hero-veil pointer-events-none" aria-hidden="true" />
         <div className="max-w-5xl mx-auto px-6 pt-20 pb-20 text-center relative z-10">
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card text-xs font-medium mb-6">
               <span className="size-1.5 rounded-full bg-success animate-pulse-glow" />
               AI co-teacher for busy classrooms
@@ -270,9 +257,9 @@ function Landing() {
               <div className="h-8 w-px bg-border hidden sm:block" />
               <div><span className="text-2xl font-bold text-foreground block">94%</span> feedback quality</div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }} className="mt-12 relative">
+          <div className="mt-12 relative">
             <div className="mx-auto max-w-3xl rounded-3xl border border-border bg-card p-6 shadow-card text-left">
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>Assistant session</span>
@@ -294,11 +281,8 @@ function Landing() {
               </div>
               <div className="mt-4 grid gap-3">
                 {HERO_TASKS.map((task, i) => (
-                  <motion.div
+                  <div
                     key={task.title}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.25 + i * 0.1 }}
                     className="flex items-center gap-3 rounded-2xl border border-border bg-card/80 p-3"
                   >
                     <div className="size-9 rounded-xl bg-primary/10 text-primary grid place-items-center">
@@ -308,7 +292,7 @@ function Landing() {
                       <div className="text-sm font-semibold">{task.title}</div>
                       <div className="text-xs text-muted-foreground">{task.detail}</div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
               <div className="mt-4 rounded-2xl border border-border bg-background p-4">
@@ -320,37 +304,25 @@ function Landing() {
               </div>
             </div>
 
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4.5, repeat: Infinity }}
-              className="hidden sm:flex absolute -top-6 left-6 items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2 text-xs shadow-card"
-            >
+            <div className="hidden sm:flex absolute -top-6 left-6 items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2 text-xs shadow-card">
               <div className="size-7 rounded-lg bg-primary/10 text-primary grid place-items-center">
                 <Bot className="size-4" />
               </div>
               Misconception alert
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 5, repeat: Infinity }}
-              className="hidden sm:flex absolute -bottom-6 right-8 items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2 text-xs shadow-card"
-            >
+            </div>
+            <div className="hidden sm:flex absolute -bottom-6 right-8 items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2 text-xs shadow-card">
               <div className="size-7 rounded-lg bg-primary/10 text-primary grid place-items-center">
                 <MessageSquareText className="size-4" />
               </div>
               Feedback ready in 2 min
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4.2, repeat: Infinity }}
-              className="hidden md:flex absolute top-1/2 -left-10 items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2 text-xs shadow-card"
-            >
+            </div>
+            <div className="hidden md:flex absolute top-1/2 -left-10 items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2 text-xs shadow-card">
               <div className="size-7 rounded-lg bg-primary/10 text-primary grid place-items-center">
                 <BookOpen className="size-4" />
               </div>
               Slide deck generated
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -365,13 +337,9 @@ function Landing() {
               students supported.
             </p>
             <div className="mt-8 grid sm:grid-cols-2 gap-4">
-              {PILLARS.map((pillar, i) => (
-                <motion.div
+              {PILLARS.map((pillar) => (
+                <div
                   key={pillar.title}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.06 }}
                   className="p-5 rounded-2xl border border-border bg-card shadow-card"
                 >
                   <div className="size-10 rounded-xl bg-primary/10 text-primary grid place-items-center mb-3">
@@ -379,7 +347,7 @@ function Landing() {
                   </div>
                   <div className="font-semibold">{pillar.title}</div>
                   <p className="text-sm text-muted-foreground mt-1">{pillar.description}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -417,19 +385,15 @@ function Landing() {
           </div>
           <div className="grid md:grid-cols-4 gap-6">
             {WORKFLOW.map((step, i) => (
-              <motion.div
+              <div
                 key={step.title}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07 }}
                 className="relative p-6 rounded-2xl bg-card border border-border shadow-card"
               >
                 <div className="text-4xl font-display text-muted-foreground mb-3">0{i + 1}</div>
                 <step.icon className="size-6 text-primary mb-3" />
                 <h3 className="font-bold mb-1">{step.title}</h3>
                 <p className="text-sm text-muted-foreground">{step.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

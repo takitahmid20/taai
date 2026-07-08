@@ -1,6 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Mail, Lock, ArrowRight, Loader2, Brain } from "lucide-react";
 import { Logo } from "@/components/app/logo";
 import { login } from "@/lib/api";
@@ -64,7 +63,7 @@ function Login() {
           <Logo size="default" className="text-primary-foreground" />
         </Link>
         <div className="relative">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+          <div className="space-y-4">
             <div className="glass rounded-2xl p-4 text-primary-foreground max-w-sm">
               <div className="flex items-center gap-2 text-xs mb-2 opacity-80">
                 <Brain className="size-3.5" /> AI evaluation complete
@@ -72,19 +71,15 @@ function Login() {
               <div className="text-2xl font-bold">94% confidence</div>
               <div className="text-xs opacity-80 mt-1">Newton's Laws · Rahim Ahmed</div>
             </div>
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="glass rounded-2xl p-4 text-primary-foreground max-w-sm ml-12"
-            >
+            <div className="glass rounded-2xl p-4 text-primary-foreground max-w-sm ml-12">
               <div className="text-xs opacity-80 mb-1">Class average improving</div>
               <div className="flex items-end gap-1 h-12">
                 {[40, 55, 50, 70, 65, 80, 88].map((h, i) => (
                   <div key={i} className="flex-1 bg-card/30 rounded-t" style={{ height: `${h}%` }} />
                 ))}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
           <h2 className="relative text-4xl font-display font-bold text-primary-foreground mt-12 max-w-md leading-tight">
             Grade smarter, teach better.
           </h2>

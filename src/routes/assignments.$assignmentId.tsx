@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { AppShell } from "@/components/app/shell";
-import { motion } from "framer-motion";
 import {
   ArrowLeft, Upload, FileText, Image as ImageIcon, X, Loader2,
   CheckCircle2, AlertTriangle, Pencil, Check, Brain, Hash, ClipboardList, BookCheck, Trash2,
@@ -631,7 +630,7 @@ function AssignmentDetail() {
                   <div><div className="font-bold text-sm">AI is processing...</div><div className="text-xs text-muted-foreground">This may take 5–30 seconds</div></div>
                 </div>
                 <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-                  <motion.div className="h-full bg-primary" initial={{ width: "5%" }} animate={{ width: "85%" }} transition={{ duration: 15, ease: "easeOut" }} />
+                  <div className="h-full bg-primary" />
                 </div>
               </div>
             )}
@@ -970,7 +969,7 @@ function AssignmentDetail() {
                   {uploadingAnswers && (
                     <div className="p-4 rounded-md bg-card border border-border">
                       <div className="flex items-center gap-2 mb-2"><Brain className="size-4 text-primary animate-pulse" /><span className="text-xs font-medium">AI extracting answers...</span></div>
-                      <div className="h-1.5 bg-muted rounded-full overflow-hidden"><motion.div className="h-full bg-primary" initial={{ width: "5%" }} animate={{ width: "85%" }} transition={{ duration: 15, ease: "easeOut" }} /></div>
+                      <div className="h-1.5 bg-muted rounded-full overflow-hidden"><div className="h-full bg-primary" /></div>
                     </div>
                   )}
                 </>
@@ -1044,7 +1043,7 @@ function AssignmentDetail() {
                       <Brain className="size-5 text-primary animate-pulse" />
                       <div><div className="text-sm font-medium">Dual AI graders evaluating...</div><div className="text-xs text-muted-foreground">This may take 15–60 seconds</div></div>
                     </div>
-                    <div className="h-1.5 bg-muted rounded-full overflow-hidden"><motion.div className="h-full bg-primary" initial={{ width: "5%" }} animate={{ width: "80%" }} transition={{ duration: 30, ease: "easeOut" }} /></div>
+                    <div className="h-1.5 bg-muted rounded-full overflow-hidden"><div className="h-full bg-primary" /></div>
                   </div>
                 )}
 

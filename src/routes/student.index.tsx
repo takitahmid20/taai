@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useCallback } from "react";
 import { AppShell } from "@/components/app/shell";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Plus,
   Search,
@@ -172,93 +171,86 @@ function StudentsPage() {
         )}
 
         {/* Add student form */}
-        <AnimatePresence>
-          {showAdd && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden"
+        {showAdd && (
+          <div className="overflow-hidden">
+            <form
+              onSubmit={handleAdd}
+              className="mb-4 p-4 rounded-lg bg-card border border-border space-y-3"
             >
-              <form
-                onSubmit={handleAdd}
-                className="mb-4 p-4 rounded-lg bg-card border border-border space-y-3"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-sm">Add New Student</h3>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowAdd(false);
-                      setAddError(null);
-                    }}
-                    className="size-7 rounded-lg hover:bg-accent grid place-items-center cursor-pointer"
-                  >
-                    <X className="size-4" />
-                  </button>
-                </div>
+              <div className="flex items-center justify-between">
+                <h3 className="font-bold text-sm">Add New Student</h3>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowAdd(false);
+                    setAddError(null);
+                  }}
+                  className="size-7 rounded-lg hover:bg-accent grid place-items-center cursor-pointer"
+                >
+                  <X className="size-4" />
+                </button>
+              </div>
 
-                {addError && (
-                  <div className="px-3 py-2 rounded-lg bg-destructive/10 text-destructive text-xs">
-                    {addError}
-                  </div>
-                )}
-
-                <div className="grid sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-xs font-medium text-muted-foreground">
-                      Student ID <span className="text-destructive">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. 2021001"
-                      value={addForm.id}
-                      onChange={(e) => setAddForm((p) => ({ ...p, id: e.target.value }))}
-                      className="mt-1 w-full px-3 py-2.5 rounded-md border border-border bg-background text-sm focus:ring-2 focus:ring-ring outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-muted-foreground">
-                      Name <span className="text-destructive">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Alice Johnson"
-                      value={addForm.name}
-                      onChange={(e) => setAddForm((p) => ({ ...p, name: e.target.value }))}
-                      className="mt-1 w-full px-3 py-2.5 rounded-md border border-border bg-background text-sm focus:ring-2 focus:ring-ring outline-none"
-                    />
-                  </div>
+              {addError && (
+                <div className="px-3 py-2 rounded-lg bg-destructive/10 text-destructive text-xs">
+                  {addError}
                 </div>
+              )}
 
-                <div className="flex justify-end gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowAdd(false);
-                      setAddError(null);
-                    }}
-                    className="px-4 py-2 rounded-md border border-border text-sm hover:bg-accent transition cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={addLoading}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium disabled:opacity-60 cursor-pointer"
-                  >
-                    {addLoading ? (
-                      <Loader2 className="size-4 animate-spin" />
-                    ) : (
-                      <Plus className="size-4" />
-                    )}
-                    Add
-                  </button>
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">
+                    Student ID <span className="text-destructive">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 2021001"
+                    value={addForm.id}
+                    onChange={(e) => setAddForm((p) => ({ ...p, id: e.target.value }))}
+                    className="mt-1 w-full px-3 py-2.5 rounded-md border border-border bg-background text-sm focus:ring-2 focus:ring-ring outline-none"
+                  />
                 </div>
-              </form>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">
+                    Name <span className="text-destructive">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Alice Johnson"
+                    value={addForm.name}
+                    onChange={(e) => setAddForm((p) => ({ ...p, name: e.target.value }))}
+                    className="mt-1 w-full px-3 py-2.5 rounded-md border border-border bg-background text-sm focus:ring-2 focus:ring-ring outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowAdd(false);
+                    setAddError(null);
+                  }}
+                  className="px-4 py-2 rounded-md border border-border text-sm hover:bg-accent transition cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={addLoading}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium disabled:opacity-60 cursor-pointer"
+                >
+                  {addLoading ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : (
+                    <Plus className="size-4" />
+                  )}
+                  Add
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
 
         {/* Student list */}
         {loading ? (
@@ -284,11 +276,8 @@ function StudentsPage() {
             </div>
 
             {filtered.map((student) => (
-              <motion.div
+              <div
                 key={student.student_id}
-                layout
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
                 className="grid grid-cols-[120px_1fr_140px] items-center px-4 py-3 rounded-md border border-border bg-card hover:bg-accent/50 transition"
               >
                 {/* Student ID (editable) */}
@@ -398,7 +387,7 @@ function StudentsPage() {
                     </>
                   )}
                 </div>
-              </motion.div>
+              </div>
             ))}
 
             <div className="pt-2 text-xs text-muted-foreground text-center">
