@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UploadRouteImport } from './routes/upload'
 import { Route as StudentRouteImport } from './routes/student'
+import { Route as SigninRouteImport } from './routes/signin'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as RubricRouteImport } from './routes/rubric'
 import { Route as ReviewRouteImport } from './routes/review'
@@ -38,6 +39,11 @@ const UploadRoute = UploadRouteImport.update({
 const StudentRoute = StudentRouteImport.update({
   id: '/student',
   path: '/student',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SigninRoute = SigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -145,6 +151,7 @@ export interface FileRoutesByFullPath {
   '/review': typeof ReviewRoute
   '/rubric': typeof RubricRoute
   '/settings': typeof SettingsRoute
+  '/signin': typeof SigninRoute
   '/student': typeof StudentRouteWithChildren
   '/upload': typeof UploadRoute
   '/assignments/$assignmentId': typeof AssignmentsAssignmentIdRoute
@@ -166,6 +173,7 @@ export interface FileRoutesByTo {
   '/review': typeof ReviewRoute
   '/rubric': typeof RubricRoute
   '/settings': typeof SettingsRoute
+  '/signin': typeof SigninRoute
   '/upload': typeof UploadRoute
   '/assignments/$assignmentId': typeof AssignmentsAssignmentIdRoute
   '/graph/$assignmentId': typeof GraphAssignmentIdRoute
@@ -188,6 +196,7 @@ export interface FileRoutesById {
   '/review': typeof ReviewRoute
   '/rubric': typeof RubricRoute
   '/settings': typeof SettingsRoute
+  '/signin': typeof SigninRoute
   '/student': typeof StudentRouteWithChildren
   '/upload': typeof UploadRoute
   '/assignments/$assignmentId': typeof AssignmentsAssignmentIdRoute
@@ -212,6 +221,7 @@ export interface FileRouteTypes {
     | '/review'
     | '/rubric'
     | '/settings'
+    | '/signin'
     | '/student'
     | '/upload'
     | '/assignments/$assignmentId'
@@ -233,6 +243,7 @@ export interface FileRouteTypes {
     | '/review'
     | '/rubric'
     | '/settings'
+    | '/signin'
     | '/upload'
     | '/assignments/$assignmentId'
     | '/graph/$assignmentId'
@@ -254,6 +265,7 @@ export interface FileRouteTypes {
     | '/review'
     | '/rubric'
     | '/settings'
+    | '/signin'
     | '/student'
     | '/upload'
     | '/assignments/$assignmentId'
@@ -277,6 +289,7 @@ export interface RootRouteChildren {
   ReviewRoute: typeof ReviewRoute
   RubricRoute: typeof RubricRoute
   SettingsRoute: typeof SettingsRoute
+  SigninRoute: typeof SigninRoute
   StudentRoute: typeof StudentRouteWithChildren
   UploadRoute: typeof UploadRoute
   GraphAssignmentIdRoute: typeof GraphAssignmentIdRoute
@@ -296,6 +309,13 @@ declare module '@tanstack/react-router' {
       path: '/student'
       fullPath: '/student'
       preLoaderRoute: typeof StudentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signin': {
+      id: '/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof SigninRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -468,6 +488,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReviewRoute: ReviewRoute,
   RubricRoute: RubricRoute,
   SettingsRoute: SettingsRoute,
+  SigninRoute: SigninRoute,
   StudentRoute: StudentRouteWithChildren,
   UploadRoute: UploadRoute,
   GraphAssignmentIdRoute: GraphAssignmentIdRoute,
