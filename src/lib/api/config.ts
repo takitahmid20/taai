@@ -3,7 +3,7 @@
  * Uses VITE_API_BASE_URL from environment variables.
  */
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://ec2-34-201-187-83.compute-1.amazonaws.com";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api-proxy";
 
 export const ENDPOINTS = {
   // Auth
