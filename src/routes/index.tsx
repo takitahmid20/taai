@@ -161,7 +161,7 @@ function Landing() {
               </Link>
             ) : (
               <>
-                <Link to="/login" className="px-4 py-2 text-sm font-medium hover:text-primary transition">Sign in</Link>
+                <Link to="/signin" className="px-4 py-2 text-sm font-medium hover:text-primary transition">Sign in</Link>
                 <Link
                   to="/register"
                   className="group inline-flex items-center gap-3 rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold transition-all hover:bg-primary/90"
@@ -201,7 +201,7 @@ function Landing() {
             </Link>
           ) : (
             <>
-              <Link to="/login" className="px-4 py-2 text-sm font-medium hover:text-primary transition">Sign in</Link>
+              <Link to="/signin" className="px-4 py-2 text-sm font-medium hover:text-primary transition">Sign in</Link>
               <Link
                 to="/register"
                 className="group inline-flex items-center gap-3 rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold transition-all hover:bg-primary/90"
